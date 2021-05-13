@@ -16,6 +16,7 @@
         "jest": "^26.6.3"
     },
     "dependencies": {
+        "chrome-remote-interface": "^0.25.7",
         "chromeless": "^1.5.2",
         "puppeteer": "^9.1.1"
     }
