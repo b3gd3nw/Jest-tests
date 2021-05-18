@@ -1,4 +1,4 @@
-function getTheBoot(context) {
+function getTheBoot(context, test = false) {
     const article = context.querySelector('article');
 
     if (!article) {
@@ -11,15 +11,20 @@ function getTheBoot(context) {
     const imgSource = imgSelector ? imgSelector.getAttribute('src') : '';
     const articleContnet = article.querySelectorAll('.entry-content p');
 
-    return { tags, title, imgSelector, articleContnet };
+    return test ? { tags, title, imgSelector, articleContnet } : scoreTags(context, tags, title, imgSource, articleContnet);
 }
 
+/**
+ * This function return scrap function with parameters
+ * 
+ * @returns scrap function with context and testing flag in parameters
+ */
 async function testScrap() {
     const puppeteer = require('puppeteer');
     const jsdom = require('jsdom');
-
     const { JSDOM } = jsdom;
 
+    // This function open headless browser and return document context
     const res = await (async() => {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
@@ -32,7 +37,7 @@ async function testScrap() {
         return document
     })();
 
-    return getTheBoot(res);
+    return getTheBoot(res, true);
 }
 
-module.exports = testScrap();
+export { getTheBoot, testScrap }

@@ -1,6 +1,5 @@
 function getTheBoot(context) {
     const article = context.querySelector('article');
-
     if (!article) {
         return { artists: [''] };
     }
@@ -17,7 +16,6 @@ function getTheBoot(context) {
 async function testScrap() {
     const puppeteer = require('puppeteer');
     const jsdom = require('jsdom');
-
     const { JSDOM } = jsdom;
 
     const res = await (async() => {
@@ -35,4 +33,4 @@ async function testScrap() {
     return getTheBoot(res);
 }
 
-module.exports = testScrap();
+export { getTheBoot, testScrap }
